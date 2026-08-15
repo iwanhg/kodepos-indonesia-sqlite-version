@@ -1,5 +1,5 @@
 /**
- * Kodepos Indonesia — shared cascade engine.
+ * Kodepos Indonesia, shared cascade engine.
  *
  * Small helper used by both the block checkout script and the admin script:
  * fetches lists from the REST proxy (with in-memory caching) and offers

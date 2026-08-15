@@ -35,21 +35,18 @@ class Kodepos_Admin {
 
 		// WooCommerce 10.4's React settings screen ("settings-ui" feature)
 		// saves from its own internal state, which never sees the cascading
-		// selects — selections silently fail to persist. Revert to the classic
+		// selects, selections silently fail to persist. Revert to the classic
 		// PHP settings renderer, which the cascade fully supports.
 		add_filter( 'woocommerce_admin_features', array( $this, 'disable_react_settings_ui' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-
-		// Save Address Line 2 (sub-district, district) from form POST.
-		add_action( 'woocommerce_settings_save_general', array( $this, 'save_store_address_extra' ) );
 
 		add_action( 'admin_notices', array( $this, 'maybe_render_unavailable_notice' ) );
 	}
 
 	/**
 	 * Warn admins when the bundled Kodepos data can't be read, instead of
-	 * failing silently. Checkout and admin screens still work — they just
+	 * failing silently. Checkout and admin screens still work, they just
 	 * fall back to WooCommerce's plain address fields.
 	 */
 	public function maybe_render_unavailable_notice() {
@@ -58,31 +55,11 @@ class Kodepos_Admin {
 		}
 
 		$message = extension_loaded( 'pdo_sqlite' )
-			? __( 'Kodepos Indonesia: the bundled postal code database is missing or unreadable. Cascading address dropdowns are disabled; plain WooCommerce address fields are used instead.', 'kodepos-indonesia' )
-			: __( 'Kodepos Indonesia: the PHP "pdo_sqlite" extension is not enabled on this server. Cascading address dropdowns are disabled; plain WooCommerce address fields are used instead.', 'kodepos-indonesia' );
+			? __( 'Kodepos Indonesia: the bundled postal code database is missing or unreadable. Cascading address dropdowns are disabled; plain WooCommerce address fields are used instead.', 'kodepos-indonesia-sqlite-version' )
+			: __( 'Kodepos Indonesia: the PHP "pdo_sqlite" extension is not enabled on this server. Cascading address dropdowns are disabled; plain WooCommerce address fields are used instead.', 'kodepos-indonesia-sqlite-version' );
 
 		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
 	}
-
-	/**
-	 * Save the district/sub-district from Address Line 2 and ensure the
-	 * correct province code is preserved after settings save.
-	 */
-	public function save_store_address_extra() {
-		// Log POSTed keys for debugging (will write to wp-content/debug.log).
-		if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
-			$keys = array( 'woocommerce_default_country', 'woocommerce_store_city', 'woocommerce_store_address_2', 'woocommerce_store_district', 'woocommerce_store_sub_district' );
-			$log  = '[Kodepos] Settings POST: ';
-			foreach ( $keys as $k ) {
-				$log .= $k . '=' . ( isset( $_POST[ $k ] ) ? sanitize_text_field( wp_unslash( $_POST[ $k ] ) ) : '(not set)' ) . ' | '; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			}
-			error_log( $log );
-		}
-
-		// Address Line 2 is a standard WooCommerce field — it saves itself.
-		// But if it's missing from POST (e.g. blank), do nothing extra.
-	}
-
 
 	/* -------------------------------------------------------------------- */
 	/* Order edit screen                                                     */
@@ -108,12 +85,12 @@ class Kodepos_Admin {
 	private function insert_order_fields( $fields, $order, $district_meta, $sub_district_meta ) {
 		$extra = array(
 			'kodepos_district'     => array(
-				'label' => __( 'Kecamatan', 'kodepos-indonesia' ),
+				'label' => __( 'Kecamatan', 'kodepos-indonesia-sqlite-version' ),
 				'show'  => false,
 				'value' => $order instanceof WC_Order ? (string) $order->get_meta( $district_meta ) : '',
 			),
 			'kodepos_sub_district' => array(
-				'label' => __( 'Kelurahan / Desa', 'kodepos-indonesia' ),
+				'label' => __( 'Kelurahan / Desa', 'kodepos-indonesia-sqlite-version' ),
 				'show'  => false,
 				'value' => $order instanceof WC_Order ? (string) $order->get_meta( $sub_district_meta ) : '',
 			),
@@ -163,7 +140,7 @@ class Kodepos_Admin {
 				continue;
 			}
 
-			$value = wc_clean( wp_unslash( $_POST[ $posted_key ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$value = wc_clean( wp_unslash( $_POST[ $posted_key ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- wc_clean() sanitizes via sanitize_text_field(); the sniff doesn't recognize WooCommerce's sanitizer.
 
 			$order->update_meta_data( $meta_key, $value );
 			$order->delete_meta_data( $posted_key );
@@ -211,11 +188,11 @@ class Kodepos_Admin {
 	private function insert_profile_fields( $fields, $city_key, $district_meta, $sub_district_meta ) {
 		$extra = array(
 			$district_meta     => array(
-				'label'       => __( 'Kecamatan', 'kodepos-indonesia' ),
+				'label'       => __( 'Kecamatan', 'kodepos-indonesia-sqlite-version' ),
 				'description' => '',
 			),
 			$sub_district_meta => array(
-				'label'       => __( 'Kelurahan / Desa', 'kodepos-indonesia' ),
+				'label'       => __( 'Kelurahan / Desa', 'kodepos-indonesia-sqlite-version' ),
 				'description' => '',
 			),
 		);
@@ -288,7 +265,7 @@ class Kodepos_Admin {
 			$result[] = $setting;
 		}
 
-		// The city row was not found — keep the country field rather than losing it.
+		// The city row was not found, keep the country field rather than losing it.
 		if ( $country_setting && ! $country_used ) {
 			$result[] = $country_setting;
 		}
@@ -344,8 +321,8 @@ class Kodepos_Admin {
 				'version' => KODEPOS_ID_VERSION,
 				'screen'  => $is_order_screen ? 'order' : ( $is_profile_screen ? 'profile' : 'settings' ),
 				'i18n'    => array(
-					'select'  => __( 'Pilih…', 'kodepos-indonesia' ),
-					'loading' => __( 'Memuat…', 'kodepos-indonesia' ),
+					'select'  => __( 'Pilih…', 'kodepos-indonesia-sqlite-version' ),
+					'loading' => __( 'Memuat…', 'kodepos-indonesia-sqlite-version' ),
 				),
 			)
 		);

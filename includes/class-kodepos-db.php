@@ -5,6 +5,10 @@
  * @package Kodepos_Indonesia
  */
 
+// phpcs:disable WordPress.DB.RestrictedClasses -- $wpdb only connects to the
+// WordPress MySQL/MariaDB database; it has no SQLite driver and can't open
+// the bundled, offline data/kodepos.sqlite file this class reads.
+
 defined( 'ABSPATH' ) || exit;
 
 class Kodepos_DB {

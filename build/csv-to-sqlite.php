@@ -8,6 +8,19 @@
  * Regenerates the bundled data/kodepos.sqlite from kodepos-indonesia.csv.
  */
 
+// phpcs:disable WordPress.WP.AlternativeFunctions, WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.DB.RestrictedClasses, WordPress.NamingConventions.PrefixAllGlobals
+// This is a standalone CLI script (see guards below) that never bootstraps
+// WordPress, so WP_Filesystem/esc_html() etc. aren't available or applicable —
+// it only ever reads/writes local build files and prints to a terminal. PDO
+// builds the bundled data/kodepos.sqlite file itself; $wpdb has no SQLite
+// driver and couldn't create it. Its top-level variables are script-local,
+// not WordPress globals, so the plugin prefix convention doesn't apply.
+
+// Block direct HTTP access; still allow the CLI invocation this script exists for.
+if ( ! defined( 'ABSPATH' ) && PHP_SAPI !== 'cli' ) {
+	exit;
+}
+
 if ( PHP_SAPI !== 'cli' ) {
 	fwrite( STDERR, "This script is CLI-only.\n" );
 	exit( 1 );
@@ -107,7 +120,7 @@ while ( false !== ( $row = fgetcsv( $handle, 0, ';' ) ) ) {
 	$values = array_combine( $columns, $row );
 
 	// Rows with no province_code can't be resolved back to a province and
-	// produce duplicate/blank entries in province-keyed lookups — drop them.
+	// produce duplicate/blank entries in province-keyed lookups, drop them.
 	if ( '' === trim( (string) $values['province_code'] ) ) {
 		++$skipped_count;
 		continue;
@@ -136,3 +149,4 @@ echo "Rows: {$row_count}\n";
 echo "Skipped (blank province_code): {$skipped_count}\n";
 echo "Data version: {$data_version}\n";
 echo "File size: {$size_mb} MB\n";
+// phpcs:enable

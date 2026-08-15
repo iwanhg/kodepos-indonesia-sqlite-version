@@ -1,0 +1,3 @@
+# Generated at runtime by kodepos_id_write_data_htaccess(), not shipped in
+# the plugin package (WordPress.org disallows distributing dotfiles).
+/data/.htaccess

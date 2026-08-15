@@ -4,7 +4,7 @@
  * Indonesian locale labels and the block checkout cascade script.
  *
  * The Province/State field is left as WooCommerce's native Indonesia state
- * list (AC, JK, KB…) rather than overridden — cities are looked up from that
+ * list (AC, JK, KB…) rather than overridden, cities are looked up from that
  * native code via the cities-by-state REST route, so tax rates, shipping
  * zones and any existing saved addresses that reference the native codes
  * keep working unchanged.
@@ -41,15 +41,15 @@ class Kodepos_Checkout {
 			isset( $locale['ID'] ) ? $locale['ID'] : array(),
 			array(
 				'state'    => array(
-					'label'    => __( 'Provinsi', 'kodepos-indonesia' ),
+					'label'    => __( 'Provinsi', 'kodepos-indonesia-sqlite-version' ),
 					'required' => true,
 				),
 				'city'     => array(
-					'label'    => __( 'Kota / Kabupaten', 'kodepos-indonesia' ),
+					'label'    => __( 'Kota / Kabupaten', 'kodepos-indonesia-sqlite-version' ),
 					'required' => true,
 				),
 				'postcode' => array(
-					'label'    => __( 'Kode Pos', 'kodepos-indonesia' ),
+					'label'    => __( 'Kode Pos', 'kodepos-indonesia-sqlite-version' ),
 					'required' => true,
 				),
 			)
@@ -71,7 +71,7 @@ class Kodepos_Checkout {
 		woocommerce_register_additional_checkout_field(
 			array(
 				'id'       => self::FIELD_DISTRICT,
-				'label'    => __( 'Kecamatan', 'kodepos-indonesia' ),
+				'label'    => __( 'Kecamatan', 'kodepos-indonesia-sqlite-version' ),
 				'location' => 'address',
 				'type'     => 'text',
 				'required' => false,
@@ -81,7 +81,7 @@ class Kodepos_Checkout {
 		woocommerce_register_additional_checkout_field(
 			array(
 				'id'       => self::FIELD_SUB_DISTRICT,
-				'label'    => __( 'Kelurahan / Desa', 'kodepos-indonesia' ),
+				'label'    => __( 'Kelurahan / Desa', 'kodepos-indonesia-sqlite-version' ),
 				'location' => 'address',
 				'type'     => 'text',
 				'required' => false,
@@ -146,12 +146,12 @@ class Kodepos_Checkout {
 					'subDistrict' => self::FIELD_SUB_DISTRICT,
 				),
 				'i18n'    => array(
-					'select'            => __( 'Select…', 'kodepos-indonesia' ),
-					'loading'           => __( 'Loading…', 'kodepos-indonesia' ),
-					'selectCity'        => __( 'Select City', 'kodepos-indonesia' ),
-					'selectDistrict'    => __( 'Select District', 'kodepos-indonesia' ),
-					'selectSubDistrict' => __( 'Select Sub District', 'kodepos-indonesia' ),
-					'selectPostcode'    => __( 'Select Postcode', 'kodepos-indonesia' ),
+					'select'            => __( 'Select…', 'kodepos-indonesia-sqlite-version' ),
+					'loading'           => __( 'Loading…', 'kodepos-indonesia-sqlite-version' ),
+					'selectCity'        => __( 'Select City', 'kodepos-indonesia-sqlite-version' ),
+					'selectDistrict'    => __( 'Select District', 'kodepos-indonesia-sqlite-version' ),
+					'selectSubDistrict' => __( 'Select Sub District', 'kodepos-indonesia-sqlite-version' ),
+					'selectPostcode'    => __( 'Select Postcode', 'kodepos-indonesia-sqlite-version' ),
 				),
 			)
 		);

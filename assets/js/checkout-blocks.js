@@ -1,7 +1,7 @@
 /**
- * Kodepos Indonesia — block checkout integration.
+ * Kodepos Indonesia, block checkout integration.
  *
- * The native Province/State field is left untouched — it's WooCommerce's own
+ * The native Province/State field is left untouched, it's WooCommerce's own
  * Indonesia state list (AC, JK, KB…), which keeps tax rates, shipping zones
  * and any existing saved addresses referencing those codes working. For
  * Indonesian addresses the native City / Postcode inputs and the two
@@ -23,7 +23,7 @@
 	'use strict';
 
 	if ( ! window.wp || ! window.wp.data || ! window.KodeposCascade ) {
-		window.console && console.warn( '[Kodepos] wp.data or cascade core missing — cascade disabled.' );
+		window.console && console.warn( '[Kodepos] wp.data or cascade core missing, cascade disabled.' );
 		return;
 	}
 
@@ -305,7 +305,7 @@
 
 			K.populateSelect( section.els.postal, codes );
 
-			// A single postal code needs no decision — pick it.
+			// A single postal code needs no decision, pick it.
 			if ( codes.length === 1 ) {
 				section.els.postal.value = codes[ 0 ].name;
 				section.els.postal.classList.remove( 'is-empty' );
@@ -315,7 +315,7 @@
 	}
 
 	/**
-	 * Populate the cascade from the address currently in the store — used on
+	 * Populate the cascade from the address currently in the store, used on
 	 * first paint (prefill) and whenever the native Province/State changes.
 	 */
 	function syncFromAddress( sectionKey, prefill ) {
@@ -387,7 +387,7 @@
 		var section = sections[ sectionKey ];
 		var cityInput = nativeInput( sectionKey, 'city' );
 
-		// Form not rendered (yet) — e.g. billing collapsed behind "use
+		// Form not rendered (yet), e.g. billing collapsed behind "use
 		// shipping address for billing".
 		if ( ! cityInput ) {
 			section.container = null;

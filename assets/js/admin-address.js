@@ -1,5 +1,5 @@
 /**
- * Kodepos Indonesia — admin cascading selects.
+ * Kodepos Indonesia, admin cascading selects.
  *
  * Drives three classic (jQuery) admin screens with one generic "group"
  * implementation: the order edit billing/shipping panels, the user profile
@@ -30,7 +30,7 @@
 	 * @param {Object} opts
 	 * @param {Function} opts.getCountry  Returns the current country code.
 	 * @param {Function} opts.getState    Returns the current province code.
-	 * @param {Function} opts.bindRegion  bindRegion(handler) — call handler when country/state change.
+	 * @param {Function} opts.bindRegion  bindRegion(handler), call handler when country/state change.
 	 * @param {string} opts.cityId       DOM id of the city input.
 	 * @param {string} opts.districtId   DOM id of the district input.
 	 * @param {string} opts.subDistrictId DOM id of the sub-district input.
@@ -83,7 +83,7 @@
 					// Restoring already-saved values fires 'change' events (to
 					// drive select2's UI and our own cascade), which WordPress
 					// admin's own "unsaved changes" tracking can't tell apart
-					// from a real edit. Clear the resulting nav warning — this
+					// from a real edit. Clear the resulting nav warning, this
 					// prefill isn't a change the user made, so leaving the
 					// page right after load shouldn't prompt them.
 					if ( isInitialLoad && window.onbeforeunload ) {
@@ -400,7 +400,7 @@
 				country.value = first.value;
 			}
 		}
-		// NOTE: Do NOT trigger 'change' here — the Group is already handling
+		// NOTE: Do NOT trigger 'change' here, the Group is already handling
 		// the initial load via refresh() called in its constructor.
 	}
 
@@ -484,7 +484,7 @@
 				attachSyncAndToggle( g );
 			},
 			// Called once the city → district → sub-district restore chain
-			// settles — backfills Address Line 2 if it's blank (e.g. the
+			// settles, backfills Address Line 2 if it's blank (e.g. the
 			// dropdowns hold restored values but the text field was cleared).
 			onPrefillComplete: function ( g ) {
 				fillAddress2IfEmpty( g );

@@ -1,8 +1,18 @@
-# Kodepos Indonesia for WooCommerce (SQLite Version)
+# Kodepos Indonesia SQLite Version
 
-Cascading Indonesian address dropdowns — **Provinsi → Kota/Kabupaten → Kecamatan → Kelurahan/Desa → Kode Pos** — for the WooCommerce block checkout and admin screens, powered by a ~84,000-row postal code database bundled directly inside the plugin.
+Contributors: iwanhg
+Requires at least: 6.5
+Tested up to: 7.0
+Requires PHP: 7.4
+Stable tag: 1.2.2
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-No API keys, no external service, no per-site data import — everything is queried locally from a read-only SQLite file that ships with the plugin.
+Cascading Province/City/District/Sub-district/Postal Code dropdowns for WooCommerce checkout, powered by an offline bundled database.
+
+Cascading Indonesian address dropdowns, **Provinsi → Kota/Kabupaten → Kecamatan → Kelurahan/Desa → Kode Pos**, for the WooCommerce block checkout and admin screens, powered by a ~84,000-row postal code database bundled directly inside the plugin.
+
+No API keys, no external service, no per-site data import, everything is queried locally from a read-only SQLite file that ships with the plugin.
 
 ## Why this exists
 
@@ -12,9 +22,9 @@ WooCommerce's default Indonesian address form only offers a flat Province/State 
 
 - **Cascading selects** on the WooCommerce block checkout, the admin order edit screen, the admin user profile address fields, and the WooCommerce → Settings → General store address form.
 - **Auto-filled postal code** once a Kelurahan/Desa is selected.
-- **Native province codes preserved** — the Province/State field stays WooCommerce's built-in Indonesia state list (`AC`, `JK`, `KB`, …) rather than being replaced, so existing tax rates, shipping zones and saved addresses that reference those codes keep working. Cities are looked up from that native code.
+- **Native province codes preserved**, the Province/State field stays WooCommerce's built-in Indonesia state list (`AC`, `JK`, `KB`, …) rather than being replaced, so existing tax rates, shipping zones and saved addresses that reference those codes keep working. Cities are looked up from that native code.
 - **District / sub-district persisted** via WooCommerce's Additional Checkout Fields API (`kodepos-indonesia/district`, `kodepos-indonesia/sub-district`), so they show up on orders, order emails and My Account automatically.
-- **Graceful degradation** — if the bundled database can't be read (e.g. `pdo_sqlite` missing), the plugin falls back to WooCommerce's default fields. Checkout is never blocked, and an admin notice under **WooCommerce → Kodepos Indonesia** explains why.
+- **Graceful degradation**, if the bundled database can't be read (e.g. `pdo_sqlite` missing), the plugin falls back to WooCommerce's default fields. Checkout is never blocked, and an admin notice under **WooCommerce → Kodepos Indonesia** explains why.
 - **HPOS and Cart/Checkout Blocks compatible.**
 
 ## How it works
@@ -35,7 +45,7 @@ assets/js/cascade-core.js   fetches provinces/cities/districts/sub-districts/pos
         └── admin-address.js    wires the cascade into order/profile/settings screens
 ```
 
-The SQLite file itself is never served to the browser — a `.htaccess` deny rule and an empty `index.php` guard the `data/` directory, and the browser only ever talks to the REST proxy.
+The SQLite file itself is never served to the browser, a `.htaccess` deny rule and an empty `index.php` guard the `data/` directory, and the browser only ever talks to the REST proxy.
 
 ### REST API
 
@@ -43,7 +53,7 @@ All routes are namespaced under `kodepos-indonesia/v1` and are public/read-only:
 
 | Route | Required query param | Returns |
 |---|---|---|
-| `GET /provinces` | — | All provinces |
+| `GET /provinces` |, | All provinces |
 | `GET /cities` | `province_code` | Cities in a province (dataset province code) |
 | `GET /cities-by-state` | `wp_state_code` | Cities for a native WooCommerce/WP Indonesia state code |
 | `GET /districts` | `city_code` | Districts (Kecamatan) in a city |
@@ -63,7 +73,7 @@ Responses are `{ "items": [...] }` and cached with `Cache-Control: public, max-a
 
 1. Copy this plugin into `wp-content/plugins/`.
 2. Activate it from **Plugins** (WooCommerce must already be active).
-3. That's it — checkout and admin address forms pick up the cascade automatically for Indonesian addresses. No configuration is needed.
+3. That's it, checkout and admin address forms pick up the cascade automatically for Indonesian addresses. No configuration is needed.
 
 Check **WooCommerce → Kodepos Indonesia** at any time for a diagnostics page showing whether the `pdo_sqlite` extension is enabled, whether the bundled database loaded, its data version and row count.
 
@@ -91,7 +101,7 @@ uninstall.php                       Cleans up legacy options/transients on unins
 
 ## Regenerating the bundled database
 
-The SQLite file is built once from a semicolon-delimited CSV and committed to the repo — it is **not** generated on the user's server. To rebuild it from an updated dataset:
+The SQLite file is built once from a semicolon-delimited CSV and committed to the repo, it is **not** generated on the user's server. To rebuild it from an updated dataset:
 
 ```
 php build/csv-to-sqlite.php [source.csv] [target.sqlite]
@@ -117,10 +127,10 @@ These are the same keys used by orders, order emails, My Account, the admin orde
 ## FAQ
 
 **What happens if the bundled database can't be read?**
-The plugin falls back to WooCommerce's default fields — checkout is never blocked. An admin notice under **WooCommerce → Kodepos Indonesia** explains why (usually a missing `pdo_sqlite` PHP extension).
+The plugin falls back to WooCommerce's default fields, checkout is never blocked. An admin notice under **WooCommerce → Kodepos Indonesia** explains why (usually a missing `pdo_sqlite` PHP extension).
 
 **Why does the classic (PHP) WooCommerce settings screen render instead of the React one?**
-WooCommerce's React "settings-ui" feature saves store address settings from its own internal state, which never sees the cascading selects, so district/sub-district selections would silently fail to save. The plugin disables that feature so the classic renderer — which the cascade fully supports — is used instead.
+WooCommerce's React "settings-ui" feature saves store address settings from its own internal state, which never sees the cascading selects, so district/sub-district selections would silently fail to save. The plugin disables that feature so the classic renderer, which the cascade fully supports, is used instead.
 
 ## License
 
