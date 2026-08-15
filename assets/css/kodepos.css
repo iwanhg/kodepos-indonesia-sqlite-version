@@ -1,0 +1,79 @@
+/* Kodepos Indonesia — cascading address selects. */
+
+.kodepos-hidden {
+	display: none !important;
+}
+
+/* Checkout: stacked, full-width selects (City, District, Sub District,
+   Postcode) rendered after the native Province/State field. */
+.kodepos-cascade {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin: 16px 0;
+	width: 100%;
+}
+
+.kodepos-field {
+	width: 100%;
+}
+
+/* Mirrors .wc-block-components-text-input input so the selects are visually
+   identical to the native checkout fields. */
+.kodepos-select {
+	width: 100%;
+	max-width: 100%;
+	height: 50px;
+	padding: 0 12px;
+	border: 1px solid color-mix(in srgb, currentColor 80%, transparent);
+	border-radius: 4px;
+	background-color: #fff;
+	color: #2b2d2f;
+	font-family: inherit;
+	font-size: 14px;
+	font-style: inherit;
+	font-weight: inherit;
+	letter-spacing: inherit;
+	line-height: 25px;
+	box-sizing: border-box;
+	appearance: auto;
+	-webkit-appearance: auto;
+}
+
+/* Placeholder look while nothing is chosen. */
+.kodepos-select.is-empty {
+	color: #757575;
+}
+
+.kodepos-select:disabled {
+	background-color: #fff;
+	color: #9a9a9a;
+	cursor: not-allowed;
+}
+
+.kodepos-select:focus {
+	outline: none;
+	border: 1.5px solid;
+	color: #2b2d2f;
+}
+
+/* Admin screens: compact WP-style controls. */
+.wp-admin .kodepos-select {
+	height: auto;
+	padding: 0 24px 0 8px;
+	min-height: 30px;
+	font-size: 14px;
+	border-color: #8c8f94;
+	border-radius: 4px;
+}
+
+#order_data .kodepos-select {
+	width: 100%;
+}
+
+/* Store Address settings: same 400px width as the other WooCommerce
+   general-settings inputs (e.g. Postcode). */
+.woocommerce_page_wc-settings .kodepos-select {
+	width: 400px;
+	max-width: 100%;
+}
