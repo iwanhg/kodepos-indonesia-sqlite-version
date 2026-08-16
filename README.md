@@ -1,12 +1,12 @@
 # Kodepos Indonesia SQLite Version
 
-Contributors: [iwanhg](https://github.com/iwanhg)
-Requires at least: 6.5
-Tested up to: 7.0
-Requires PHP: 7.4
-Stable tag: 1.2.2
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+- Contributors: [iwanhg](https://github.com/iwanhg)
+- Requires at least: 6.5
+- Tested up to: 7.0
+- Requires PHP: 7.4
+- Stable tag: 1.2.2
+- License: GPLv2 or later
+- License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Cascading Province/City/District/Sub-district/Postal Code dropdowns for WooCommerce checkout, powered by an offline bundled database.
 
