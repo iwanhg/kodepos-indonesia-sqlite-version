@@ -1,6 +1,6 @@
 # Kodepos Indonesia SQLite Version
 
-Contributors: iwanhg
+Contributors: [iwanhg](https://github.com/iwanhg)
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
