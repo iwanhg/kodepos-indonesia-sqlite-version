@@ -4,7 +4,7 @@
  * Plugin URI:  https://github.com/iwanhg/kodepos-indonesia-sqlite-version
  * Description: Replaces WooCommerce Indonesian address entry with cascading Province, City, District, Sub-district and Postal Code dropdowns powered by a bundled offline postal code database.
  * Version:     1.2.2
- * Author:      Iwan
+ * Author:      Iwan HG
  * Text Domain: kodepos-indonesia-sqlite-version
  * Requires at least: 6.5
  * Requires PHP: 7.4
