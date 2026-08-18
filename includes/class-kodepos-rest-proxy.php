@@ -71,7 +71,7 @@ class Kodepos_Rest_Proxy {
 		if ( ! $this->db->is_available() ) {
 			return new WP_Error(
 				'kodepos_not_configured',
-				__( 'Kodepos Indonesia data is not available on this site.', 'kodepos-indonesia-sqlite-version' ),
+				__( 'Kodepos Indonesia data is not available on this site.', 'alamat-cascade-woocommerce' ),
 				array( 'status' => 503 )
 			);
 		}

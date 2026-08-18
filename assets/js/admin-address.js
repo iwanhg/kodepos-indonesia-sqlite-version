@@ -1,9 +1,10 @@
 /**
- * Kodepos Indonesia, admin cascading selects.
+ * Kodepos Indonesia, classic cascading selects.
  *
- * Drives three classic (jQuery) admin screens with one generic "group"
- * implementation: the order edit billing/shipping panels, the user profile
- * address sections and the WooCommerce Store Address settings.
+ * Drives four classic (jQuery) address screens with one generic "group"
+ * implementation: the admin order edit billing/shipping panels, the admin
+ * user profile address sections, the WooCommerce Store Address settings, and
+ * the front-end My Account "Edit address" forms.
  *
  * For Indonesian addresses the plain city / district / sub-district text
  * inputs are swapped for <select>es (same id + name, so the form posts the
@@ -372,6 +373,41 @@
 	}
 
 	/**
+	 * The front-end My Account "Edit address" forms render "billing_city" /
+	 * "shipping_city" etc. like the admin profile screen, but district and
+	 * sub-district come from WooCommerce Blocks' Additional Checkout Fields
+	 * bridge instead, which renders them with their bare registered id (no
+	 * "_wc_billing/" prefix, that prefix is only in the POSTed field name).
+	 * Only one of billing/shipping is ever present, since each is a
+	 * separate page.
+	 */
+	function initAccountScreen() {
+		var fieldIds = cfg.fields || {};
+
+		[ 'billing', 'shipping' ].forEach( function ( prefix ) {
+			if ( ! byId( prefix + '_city' ) ) {
+				return;
+			}
+
+			new Group( {
+				getCountry: function () {
+					return valueOf( prefix + '_country' );
+				},
+				getState: function () {
+					return valueOf( prefix + '_state' );
+				},
+				bindRegion: function ( handler ) {
+					bindDelegated( [ prefix + '_country', prefix + '_state' ], handler );
+				},
+				cityId: prefix + '_city',
+				districtId: fieldIds.district,
+				subDistrictId: fieldIds.subDistrict,
+				postcodeId: prefix + '_postcode',
+			} );
+		} );
+	}
+
+	/**
 	 * Strip every non-Indonesian entry from the store Country/State select so
 	 * the shop location can only be an Indonesian province.
 	 */
@@ -560,6 +596,9 @@
 				break;
 			case 'profile':
 				initProfileScreen();
+				break;
+			case 'account':
+				initAccountScreen();
 				break;
 			case 'settings':
 				initSettingsScreen();

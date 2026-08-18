@@ -1,12 +1,12 @@
-# Kodepos Indonesia SQLite Version
+# Alamat Cascade for WooCommerce
 
-- Contributors: [iwanhg](https://github.com/iwanhg)
-- Requires at least: 6.5
-- Tested up to: 7.0
-- Requires PHP: 7.4
-- Stable tag: 1.2.2
-- License: GPLv2 or later
-- License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Contributors: iwanhg
+Requires at least: 6.5
+Tested up to: 7.0
+Requires PHP: 7.4
+Stable tag: 1.2.2
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Cascading Province/City/District/Sub-district/Postal Code dropdowns for WooCommerce checkout, powered by an offline bundled database.
 
@@ -20,7 +20,7 @@ WooCommerce's default Indonesian address form only offers a flat Province/State 
 
 ## Features
 
-- **Cascading selects** on the WooCommerce block checkout, the admin order edit screen, the admin user profile address fields, and the WooCommerce → Settings → General store address form.
+- **Cascading selects** on the WooCommerce block checkout, the My Account → Addresses (`edit-address/billing`, `edit-address/shipping`) forms, the admin order edit screen, the admin user profile address fields, and the WooCommerce → Settings → General store address form.
 - **Auto-filled postal code** once a Kelurahan/Desa is selected.
 - **Native province codes preserved**, the Province/State field stays WooCommerce's built-in Indonesia state list (`AC`, `JK`, `KB`, …) rather than being replaced, so existing tax rates, shipping zones and saved addresses that reference those codes keep working. Cities are looked up from that native code.
 - **District / sub-district persisted** via WooCommerce's Additional Checkout Fields API (`kodepos-indonesia/district`, `kodepos-indonesia/sub-district`), so they show up on orders, order emails and My Account automatically.
@@ -45,7 +45,7 @@ assets/js/cascade-core.js   fetches provinces/cities/districts/sub-districts/pos
         └── admin-address.js    wires the cascade into order/profile/settings screens
 ```
 
-The SQLite file itself is never served to the browser, a `.htaccess` deny rule and an empty `index.php` guard the `data/` directory, and the browser only ever talks to the REST proxy.
+The SQLite file is never served to the browser through normal use, the browser only ever talks to the REST proxy, and an empty `index.php` blocks directory listing. The file itself contains only the public Indonesian postal code dataset (province/city/district/postcode names and codes) — no user or site data — so it carries no meaningful exposure risk if a webserver ever serves it directly by path; WordPress.org plugin guidelines disallow both shipping a `.htaccess` file in the package and writing one into the plugin's own directory at runtime, so no further access control is applied here.
 
 ### REST API
 
@@ -86,11 +86,12 @@ includes/
   class-kodepos-rest-proxy.php      Public REST API exposing the DB to the browser
   class-kodepos-checkout.php        Block checkout integration + additional fields
   class-kodepos-admin.php           Order / profile / store settings integration
+  class-kodepos-account.php         My Account edit-address integration
   class-kodepos-settings.php        WooCommerce → Kodepos Indonesia diagnostics page
 assets/
   js/cascade-core.js                Shared cascade fetch/render logic
   js/checkout-blocks.js             Block checkout wiring
-  js/admin-address.js               Admin screens wiring
+  js/admin-address.js               Admin screens + My Account edit-address wiring
   css/kodepos.css
 data/
   kodepos.sqlite                    Bundled, read-only postal code database
