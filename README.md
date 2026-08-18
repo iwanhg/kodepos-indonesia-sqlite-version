@@ -10,6 +10,8 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Cascading Province/City/District/Sub-district/Postal Code dropdowns for WooCommerce checkout, powered by an offline bundled database.
 
+## Description
+
 Cascading Indonesian address dropdowns, **Provinsi → Kota/Kabupaten → Kecamatan → Kelurahan/Desa → Kode Pos**, for the WooCommerce block checkout and admin screens, powered by a ~84,000-row postal code database bundled directly inside the plugin.
 
 No API keys, no external service, no per-site data import, everything is queried locally from a read-only SQLite file that ships with the plugin.
