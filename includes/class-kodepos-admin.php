@@ -55,8 +55,8 @@ class Kodepos_Admin {
 		}
 
 		$message = extension_loaded( 'pdo_sqlite' )
-			? __( 'Kodepos Indonesia: the bundled postal code database is missing or unreadable. Cascading address dropdowns are disabled; plain WooCommerce address fields are used instead.', 'alamat-cascade-woocommerce' )
-			: __( 'Kodepos Indonesia: the PHP "pdo_sqlite" extension is not enabled on this server. Cascading address dropdowns are disabled; plain WooCommerce address fields are used instead.', 'alamat-cascade-woocommerce' );
+			? __( 'Kodepos Indonesia: the bundled postal code database is missing or unreadable. Cascading address dropdowns are disabled; plain WooCommerce address fields are used instead.', 'kodepos-indonesia-free' )
+			: __( 'Kodepos Indonesia: the PHP "pdo_sqlite" extension is not enabled on this server. Cascading address dropdowns are disabled; plain WooCommerce address fields are used instead.', 'kodepos-indonesia-free' );
 
 		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
 	}
@@ -85,12 +85,12 @@ class Kodepos_Admin {
 	private function insert_order_fields( $fields, $order, $district_meta, $sub_district_meta ) {
 		$extra = array(
 			'kodepos_district'     => array(
-				'label' => __( 'Kecamatan', 'alamat-cascade-woocommerce' ),
+				'label' => __( 'Kecamatan', 'kodepos-indonesia-free' ),
 				'show'  => false,
 				'value' => $order instanceof WC_Order ? (string) $order->get_meta( $district_meta ) : '',
 			),
 			'kodepos_sub_district' => array(
-				'label' => __( 'Kelurahan / Desa', 'alamat-cascade-woocommerce' ),
+				'label' => __( 'Kelurahan / Desa', 'kodepos-indonesia-free' ),
 				'show'  => false,
 				'value' => $order instanceof WC_Order ? (string) $order->get_meta( $sub_district_meta ) : '',
 			),
@@ -188,11 +188,11 @@ class Kodepos_Admin {
 	private function insert_profile_fields( $fields, $city_key, $district_meta, $sub_district_meta ) {
 		$extra = array(
 			$district_meta     => array(
-				'label'       => __( 'Kecamatan', 'alamat-cascade-woocommerce' ),
+				'label'       => __( 'Kecamatan', 'kodepos-indonesia-free' ),
 				'description' => '',
 			),
 			$sub_district_meta => array(
-				'label'       => __( 'Kelurahan / Desa', 'alamat-cascade-woocommerce' ),
+				'label'       => __( 'Kelurahan / Desa', 'kodepos-indonesia-free' ),
 				'description' => '',
 			),
 		);
@@ -321,8 +321,8 @@ class Kodepos_Admin {
 				'version' => KODEPOS_ID_VERSION,
 				'screen'  => $is_order_screen ? 'order' : ( $is_profile_screen ? 'profile' : 'settings' ),
 				'i18n'    => array(
-					'select'  => __( 'Pilih…', 'alamat-cascade-woocommerce' ),
-					'loading' => __( 'Memuat…', 'alamat-cascade-woocommerce' ),
+					'select'  => __( 'Pilih…', 'kodepos-indonesia-free' ),
+					'loading' => __( 'Memuat…', 'kodepos-indonesia-free' ),
 				),
 			)
 		);

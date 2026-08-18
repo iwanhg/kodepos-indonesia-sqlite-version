@@ -5,7 +5,7 @@
  * Description: Replaces WooCommerce Indonesian address entry with cascading Province, City, District, Sub-district and Postal Code dropdowns powered by a bundled offline postal code database.
  * Version:     1.2.2
  * Author:      Iwan HG
- * Text Domain: alamat-cascade-woocommerce
+ * Text Domain: kodepos-indonesia-free
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
@@ -41,7 +41,7 @@ add_action(
 				'admin_notices',
 				function () {
 					echo '<div class="notice notice-error"><p>' .
-						esc_html__( 'Kodepos Indonesia requires WooCommerce to be installed and active.', 'alamat-cascade-woocommerce' ) .
+						esc_html__( 'Kodepos Indonesia requires WooCommerce to be installed and active.', 'kodepos-indonesia-free' ) .
 						'</p></div>';
 				}
 			);

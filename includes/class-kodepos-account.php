@@ -77,7 +77,7 @@ class Kodepos_Account {
 		}
 
 		$fields[ $district_meta ] = array(
-			'label'    => __( 'Kecamatan', 'alamat-cascade-woocommerce' ),
+			'label'    => __( 'Kecamatan', 'kodepos-indonesia-free' ),
 			'type'     => 'text',
 			'required' => false,
 			'class'    => array( 'form-row-wide' ),
@@ -85,7 +85,7 @@ class Kodepos_Account {
 		);
 
 		$fields[ $sub_district_meta ] = array(
-			'label'    => __( 'Kelurahan / Desa', 'alamat-cascade-woocommerce' ),
+			'label'    => __( 'Kelurahan / Desa', 'kodepos-indonesia-free' ),
 			'type'     => 'text',
 			'required' => false,
 			'class'    => array( 'form-row-wide' ),
@@ -142,8 +142,8 @@ class Kodepos_Account {
 					'subDistrict' => Kodepos_Checkout::FIELD_SUB_DISTRICT,
 				),
 				'i18n'    => array(
-					'select'  => __( 'Pilih…', 'alamat-cascade-woocommerce' ),
-					'loading' => __( 'Memuat…', 'alamat-cascade-woocommerce' ),
+					'select'  => __( 'Pilih…', 'kodepos-indonesia-free' ),
+					'loading' => __( 'Memuat…', 'kodepos-indonesia-free' ),
 				),
 			)
 		);

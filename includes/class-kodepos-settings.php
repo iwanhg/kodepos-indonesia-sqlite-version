@@ -24,8 +24,8 @@ class Kodepos_Settings {
 	public function add_menu() {
 		add_submenu_page(
 			'woocommerce',
-			__( 'Kodepos Indonesia', 'alamat-cascade-woocommerce' ),
-			__( 'Kodepos Indonesia', 'alamat-cascade-woocommerce' ),
+			__( 'Kodepos Indonesia', 'kodepos-indonesia-free' ),
+			__( 'Kodepos Indonesia', 'kodepos-indonesia-free' ),
 			'manage_woocommerce',
 			self::PAGE_SLUG,
 			array( $this, 'render_page' )
@@ -41,25 +41,25 @@ class Kodepos_Settings {
 		$available    = $this->db->is_available();
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Kodepos Indonesia', 'alamat-cascade-woocommerce' ); ?></h1>
-			<p><?php esc_html_e( 'Cascading Indonesian address dropdowns are powered by a postal code database bundled with this plugin, no configuration needed.', 'alamat-cascade-woocommerce' ); ?></p>
+			<h1><?php esc_html_e( 'Kodepos Indonesia', 'kodepos-indonesia-free' ); ?></h1>
+			<p><?php esc_html_e( 'Cascading Indonesian address dropdowns are powered by a postal code database bundled with this plugin, no configuration needed.', 'kodepos-indonesia-free' ); ?></p>
 
 			<table class="form-table" role="presentation">
 				<tr>
-					<th scope="row"><?php esc_html_e( 'PHP pdo_sqlite extension', 'alamat-cascade-woocommerce' ); ?></th>
-					<td><?php echo $extension_ok ? '✅ ' . esc_html__( 'Enabled', 'alamat-cascade-woocommerce' ) : '❌ ' . esc_html__( 'Not enabled', 'alamat-cascade-woocommerce' ); ?></td>
+					<th scope="row"><?php esc_html_e( 'PHP pdo_sqlite extension', 'kodepos-indonesia-free' ); ?></th>
+					<td><?php echo $extension_ok ? '✅ ' . esc_html__( 'Enabled', 'kodepos-indonesia-free' ) : '❌ ' . esc_html__( 'Not enabled', 'kodepos-indonesia-free' ); ?></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php esc_html_e( 'Postal code database', 'alamat-cascade-woocommerce' ); ?></th>
-					<td><?php echo $available ? '✅ ' . esc_html__( 'Loaded', 'alamat-cascade-woocommerce' ) : '❌ ' . esc_html__( 'Unavailable', 'alamat-cascade-woocommerce' ); ?></td>
+					<th scope="row"><?php esc_html_e( 'Postal code database', 'kodepos-indonesia-free' ); ?></th>
+					<td><?php echo $available ? '✅ ' . esc_html__( 'Loaded', 'kodepos-indonesia-free' ) : '❌ ' . esc_html__( 'Unavailable', 'kodepos-indonesia-free' ); ?></td>
 				</tr>
 				<?php if ( $available ) : ?>
 				<tr>
-					<th scope="row"><?php esc_html_e( 'Data version', 'alamat-cascade-woocommerce' ); ?></th>
+					<th scope="row"><?php esc_html_e( 'Data version', 'kodepos-indonesia-free' ); ?></th>
 					<td><?php echo esc_html( $this->db->get_data_version() ); ?></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php esc_html_e( 'Rows', 'alamat-cascade-woocommerce' ); ?></th>
+					<th scope="row"><?php esc_html_e( 'Rows', 'kodepos-indonesia-free' ); ?></th>
 					<td><?php echo esc_html( number_format_i18n( (int) $this->db->get_row_count() ) ); ?></td>
 				</tr>
 				<?php endif; ?>
@@ -69,8 +69,8 @@ class Kodepos_Settings {
 				<p class="description">
 					<?php
 					echo $extension_ok
-						? esc_html__( 'The bundled data/kodepos.sqlite file could not be read. Reinstalling the plugin usually fixes this.', 'alamat-cascade-woocommerce' )
-						: esc_html__( 'Ask your hosting provider to enable the pdo_sqlite PHP extension, which ships with virtually all PHP builds.', 'alamat-cascade-woocommerce' );
+						? esc_html__( 'The bundled data/kodepos.sqlite file could not be read. Reinstalling the plugin usually fixes this.', 'kodepos-indonesia-free' )
+						: esc_html__( 'Ask your hosting provider to enable the pdo_sqlite PHP extension, which ships with virtually all PHP builds.', 'kodepos-indonesia-free' );
 					?>
 				</p>
 			<?php endif; ?>

@@ -41,15 +41,15 @@ class Kodepos_Checkout {
 			isset( $locale['ID'] ) ? $locale['ID'] : array(),
 			array(
 				'state'    => array(
-					'label'    => __( 'Provinsi', 'alamat-cascade-woocommerce' ),
+					'label'    => __( 'Provinsi', 'kodepos-indonesia-free' ),
 					'required' => true,
 				),
 				'city'     => array(
-					'label'    => __( 'Kota / Kabupaten', 'alamat-cascade-woocommerce' ),
+					'label'    => __( 'Kota / Kabupaten', 'kodepos-indonesia-free' ),
 					'required' => true,
 				),
 				'postcode' => array(
-					'label'    => __( 'Kode Pos', 'alamat-cascade-woocommerce' ),
+					'label'    => __( 'Kode Pos', 'kodepos-indonesia-free' ),
 					'required' => true,
 				),
 			)
@@ -71,7 +71,7 @@ class Kodepos_Checkout {
 		woocommerce_register_additional_checkout_field(
 			array(
 				'id'       => self::FIELD_DISTRICT,
-				'label'    => __( 'Kecamatan', 'alamat-cascade-woocommerce' ),
+				'label'    => __( 'Kecamatan', 'kodepos-indonesia-free' ),
 				'location' => 'address',
 				'type'     => 'text',
 				'required' => false,
@@ -81,7 +81,7 @@ class Kodepos_Checkout {
 		woocommerce_register_additional_checkout_field(
 			array(
 				'id'       => self::FIELD_SUB_DISTRICT,
-				'label'    => __( 'Kelurahan / Desa', 'alamat-cascade-woocommerce' ),
+				'label'    => __( 'Kelurahan / Desa', 'kodepos-indonesia-free' ),
 				'location' => 'address',
 				'type'     => 'text',
 				'required' => false,
@@ -146,12 +146,12 @@ class Kodepos_Checkout {
 					'subDistrict' => self::FIELD_SUB_DISTRICT,
 				),
 				'i18n'    => array(
-					'select'            => __( 'Select…', 'alamat-cascade-woocommerce' ),
-					'loading'           => __( 'Loading…', 'alamat-cascade-woocommerce' ),
-					'selectCity'        => __( 'Select City', 'alamat-cascade-woocommerce' ),
-					'selectDistrict'    => __( 'Select District', 'alamat-cascade-woocommerce' ),
-					'selectSubDistrict' => __( 'Select Sub District', 'alamat-cascade-woocommerce' ),
-					'selectPostcode'    => __( 'Select Postcode', 'alamat-cascade-woocommerce' ),
+					'select'            => __( 'Select…', 'kodepos-indonesia-free' ),
+					'loading'           => __( 'Loading…', 'kodepos-indonesia-free' ),
+					'selectCity'        => __( 'Select City', 'kodepos-indonesia-free' ),
+					'selectDistrict'    => __( 'Select District', 'kodepos-indonesia-free' ),
+					'selectSubDistrict' => __( 'Select Sub District', 'kodepos-indonesia-free' ),
+					'selectPostcode'    => __( 'Select Postcode', 'kodepos-indonesia-free' ),
 				),
 			)
 		);
