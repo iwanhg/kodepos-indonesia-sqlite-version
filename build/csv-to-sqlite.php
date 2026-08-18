@@ -16,8 +16,14 @@
 // driver and couldn't create it. Its top-level variables are script-local,
 // not WordPress globals, so the plugin prefix convention doesn't apply.
 
-// Block direct HTTP access; still allow the CLI invocation this script exists for.
-if ( ! defined( 'ABSPATH' ) && PHP_SAPI !== 'cli' ) {
+// This script never bootstraps WordPress, so ABSPATH is never defined for
+// it; define it ourselves for the CLI invocation this script exists for,
+// leaving it undefined (and the guard below firing) for direct HTTP access.
+if ( PHP_SAPI === 'cli' ) {
+	define( 'ABSPATH', __DIR__ );
+}
+
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
